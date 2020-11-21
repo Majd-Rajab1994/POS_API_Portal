@@ -1,0 +1,187 @@
+'
+{
+    "establishment": "1",
+    "discount_code": null,
+    "delivery_amount": 10,
+    "discount_amount" : 12,
+    "items": [
+        {
+            "product": "1000",
+            "price": 100,
+            "quantity": 1,
+            "special_request": "",
+            "modifieritems": [
+                {
+                    "modifier": "10",   
+                    "qty": 1    
+                },
+                {
+                    "modifier": "11",   
+                    "qty": 1    
+                }
+            ]
+        },
+        {   
+            "product": "1005",      
+            "price": 50,        
+            "quantity": 1,      
+            "special_request": "",      
+            "modifieritems": []     
+        }   
+    ],
+    "orderInfo": {
+        "dining_option": 2, 
+        "notes": "//payment type // revel order no //", 
+        "customer": {   
+            "first_name": "Test",       
+            "last_name": "Dev",     
+            "phone": "+971 00000000",       
+            "email": "testdev@gmail.com",       
+            "address": {        
+                "street_1": "street 1",     
+                "street_2": "street 2",     
+                "city": "madinat zayed",        
+                "state": "Abudhabi",        
+                "country": "AE"     
+            }     
+        }   
+    }
+}'
+
+
+
+
+
+
+$x='
+		{
+			"establishment": "1",
+			"discount_code": null,
+			"delivery_amount": 10,
+			"discount_amount" : 12,
+			"items": [
+				{
+					"product": "1000",
+					"price": 100,
+					"quantity": 10,
+					"special_request": "",
+					"modifieritems": [
+						{
+							"modifier": "10",   
+							"qty": 1    
+						},
+						{
+							"modifier": "11",   
+							"qty": 1    
+						}
+					]
+				},
+				{   
+					"product": "1005",      
+					"price": 50,        
+					"quantity": 10,      
+					"special_request": "",      
+					"modifieritems": []     
+				}   
+			],
+			"orderInfo": {
+				"dining_option": 2, 
+				"notes": "//payment type // revel order no //", 
+				"customer": {   
+					"first_name": "Test",       
+					"last_name": "Dev",     
+					"phone": "+971 00000000",       
+					"email": "testdev@gmail.com",       
+					"address": {        
+						"street_1": "street 1",     
+						"street_2": "street 2",     
+						"city": "madinat zayed",        
+						"state": "Abudhabi",        
+						"country": "AE"     
+					}     
+				}   
+			}
+		}';
+		$data = '{"data":'.$x.'}';
+        $result = json_decode($data, true);
+        var_dump($result);
+		echo "<br><br><br>";
+		echo $result['data']['establishment'];
+		echo "<br><br><br>";
+		
+		foreach($result['items'] as $item) {
+			echo $item['quantity'];
+			echo "<br><br><br>";
+		}
+		
+		//$d1 = new Datetime();
+		//echo microtime(true)."<br>";
+		//echo mktime(11, 41, 50, 11, 21, 2020);
+
+
+
+
+
+
+
+
+		if(empty($orderInfo['customer']['first_name']) || is_null($orderInfo['customer']['first_name']) ||
+					empty($orderInfo['customer']['last_name']) || is_null($orderInfo['customer']['last_name']) ||
+					empty($orderInfo['customer']['phone']) || is_null($orderInfo['customer']['phone']) ||
+					empty($orderInfo['customer']['email']) || is_null($orderInfo['customer']['email']))
+					{
+
+					}
+					else
+					{
+						$idata = array(
+							'id' => $id,
+							'first_name' => $orderInfo['customer']['first_name'],
+							'last_name' => $orderInfo['customer']['first_name'],
+							'phone' => $orderInfo['customer']['first_name'],
+							'email' => $orderInfo['customer']['first_name']
+						);
+						$this->db->insert('castomer', $idata);
+						if(empty($orderInfo['customer']['address']['street_1']) || is_null($orderInfo['customer']['address']['street_1']) ||
+						empty($orderInfo['customer']['address']['street_2']) || is_null($orderInfo['customer']['address']['street_2']) ||
+						empty($orderInfo['customer']['address']['city']) || is_null($orderInfo['customer']['address']['city']) ||
+						empty($orderInfo['customer']['address']['state']) || is_null($orderInfo['customer']['address']['state']) ||
+						empty($orderInfo['customer']['address']['country']) || is_null($orderInfo['customer']['address']['country']))
+						{
+
+						}
+						else
+						{
+							$idata = array(
+								'id' => $id,
+								'street1' => $orderInfo['customer']['address']['street_1'],
+								'street2' => $orderInfo['customer']['address']['street_2'],
+								'city' => $orderInfo['customer']['address']['city'],
+								'state' => $orderInfo['customer']['address']['state'],
+								'country' => $orderInfo['customer']['address']['country']
+							);
+							$this->db->insert('address', $idata);
+						}
+					}
+
+
+
+
+
+
+					if(empty($orderInfo['dining_option']) || is_null($orderInfo['dining_option']) ||
+				empty($orderInfo['notes']) || is_null($orderInfo['notes']))
+				{
+					echo $orderInfo['notes'];
+				}
+				else
+				{
+					$idata = array(
+						'id' => $id,
+						'dining_option' => $orderInfo['dining_option'],
+						'notes' => $orderInfo['notes']
+					);
+					$this->db->insert('orderinfo', $idata);
+					
+
+				}

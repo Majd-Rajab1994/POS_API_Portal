@@ -39,6 +39,7 @@
 */
 
 $route['default_controller'] = "welcome";
+$route['push_order'] = "welcome/push_order";
 $route['404_override'] = '';
 
 
