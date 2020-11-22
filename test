@@ -185,3 +185,75 @@ $x='
 					
 
 				}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				foreach($products as $product)
+            {
+                $idata = array(
+                    'id' => $product['id'],
+                    'sort' => $product['sort'],
+                    'sku' => $product['sku'],
+                    'id_category' => $product['id_category'],
+                    'name' => $product['name'],
+                    'arabic_name' => $product['arabic_name'],
+                    'description' => $product['discription'],
+                    'arabic_discription' => $product['arabic_discription'],
+                    'barcode' => $product['barcode'],
+                    'images' => $product['images'],
+                    'stock_amount' => $product['stock_amount'],
+                    'price' => $product['price'],
+                    'uom' => $product['uom'],
+                    'cost' => $product['cost'],
+                    'sold_by_weight' => $product['sold_by_weight'],
+                    'attribute_type' => $product['attribute_type'],
+                    'is_shipping' => $product['is_shipping'],
+                    'is_gift' => $product['is_gift'],
+                    'is_combo' => $product['is_combo'],
+                    'has_upsell' => $product['has_upsell'],
+                    'max_price' => $product['max_price'],
+                    'size_chart' => $product['size_chart'],
+                    'point_value' => $product['point_value'],
+                    'course_number' => $product['course_number'],
+                    'created_date' => $product['created_date']
+                );
+                $this->db->replace('products',$idata);
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			$idata = array(
+                'id' => $category['id'],
+                'name' => $category['name'],
+                'parent_id' => $category['parent_id'],
+                'sort' => $category['sort'],
+                'parent_sort' => $category['Parent_sort'],
+                'image' => $category['image']
+            );
+            $this->db->insert('categories',$idata);

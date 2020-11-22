@@ -108,55 +108,6 @@ class Welcome extends CI_Controller {
 	{
 
 
-		$x='
-		{
-			"establishment": "1",
-			"discount_code": "null",
-			"delivery_amount": 10,
-			"discount_amount" : 12,
-			"items": [
-				{
-					"product": "1000",
-					"price": 100,
-					"quantity": 10,
-					"special_request": "p",
-					"modifieritems": [
-						{
-							"modifier": "10",   
-							"qty": 1    
-						},
-						{
-							"modifier": "11",   
-							"qty": 1    
-						}
-					]
-				},
-				{   
-					"product": "1005",      
-					"price": 50,        
-					"quantity": 10,      
-					"special_request": "p",      
-					"modifieritems": []     
-				}   
-			],
-			"orderInfo": {
-				"dining_option": "2", 
-				"notes": "oo", 
-				"customer": {   
-					"first_name": "Test",       
-					"last_name": "Dev",     
-					"phone": "+971 00000000",       
-					"email": "testdev@gmail.com",       
-					"address": {        
-						"street_1": "street 1",     
-						"street_2": "street 2",     
-						"city": "madinat zayed",        
-						"state": "Abudhabi",        
-						"country": "AE"     
-					}     
-				}   
-			}
-		}';
 
 
 		//$data = $x;
@@ -304,6 +255,102 @@ class Welcome extends CI_Controller {
 			}
 		}
 		
+	}
+	public function getproducts()
+	{
+
+		$url = 'https://apidev.polarispos.com/huffnpuff/web/list/';
+
+        $ch =curl_init();
+		curl_setopt($ch,CURLOPT_URL,$url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-apikey:7301501b-d5aa-4f7d-a849-b2098452dbba '));
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        $val = curl_exec($ch);
+        //print_r($dec);
+        
+        curl_close($ch);
+		echo $val;
+		
+	}
+	public function order()
+	{
+
+		$x='
+		{
+			"establishment": "1",
+			"discount_code": "null",
+			"delivery_amount": 10,
+			"discount_amount" : 12,
+			"items": [
+				{
+					"product": "1000",
+					"price": 100,
+					"quantity": 10,
+					"special_request": "p",
+					"modifieritems": [
+						{
+							"modifier": "10",   
+							"qty": 1    
+						},
+						{
+							"modifier": "11",   
+							"qty": 1    
+						}
+					]
+				},
+				{   
+					"product": "1005",      
+					"price": 50,        
+					"quantity": 10,      
+					"special_request": "p",      
+					"modifieritems": []     
+				}   
+			],
+			"orderInfo": {
+				"dining_option": "2", 
+				"notes": "oo", 
+				"customer": {   
+					"first_name": "Test",       
+					"last_name": "Dev",     
+					"phone": "+971 00000000",       
+					"email": "testdev@gmail.com",       
+					"address": {        
+						"street_1": "street 1",     
+						"street_2": "street 2",     
+						"city": "madinat zayed",        
+						"state": "Abudhabi",        
+						"country": "AE"     
+					}     
+				}   
+			}
+		}';
+
+		$url = 'https://apidev.polarispos.com/huffnpuff/web/push_order/';
+
+        $ch =curl_init();
+		curl_setopt($ch,CURLOPT_URL,$url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-apikey:7301501b-d5aa-4f7d-a849-b2098452dbba '));
+		curl_setopt($ch,CURLOPT_POST,true);
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$x);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        $val = curl_exec($ch);
+        //print_r($dec);
+        
+        curl_close($ch);
+		echo $val;
+	}
+	public function test()
+	{
+		$db = $this->load->database();
+		$idata= array(
+			'id'=>1,
+			'name' => 'mm'
+		);
+		$this->db->replace('products',$idata);
 	}
 }
 

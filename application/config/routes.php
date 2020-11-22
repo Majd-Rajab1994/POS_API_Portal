@@ -38,8 +38,10 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = "Polarise_Settings/index";
 $route['push_order'] = "welcome/push_order";
+$route['update_products']="Polarise_Settings/index";
+$route['updating_products']= "Polarise_Settings/update_products";
 $route['404_override'] = '';
 
 
