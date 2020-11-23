@@ -1,15 +1,18 @@
 <?php
 
 class modifiers extends CI_Model{
-    var $id = "";
-    var $id_modifier_class = "";
-    var $sku = "";
-    var $sort = "";
+    var $Prod_mod_id = "";
+    var $prod_mod_class_id = "";
+    var $establishment_id = 1;
+    var $modifier_id ="";
     var $name = "";
-    var $price = "";
+    var $sort = "";
+    var $sku = "";
     var $barcode = "";
-    var $cost = "";
     var $active = "";
+    var $price = "";
+    var $default_modifier = 0;
+    var $cost = "";
     var $selected = "";
     var $is_quick = "";
     var $img_url = "";
@@ -17,20 +20,25 @@ class modifiers extends CI_Model{
     {
         parent::__construct();
     }
-    function insert($data,$classid)
+    function insert($data,$classid,$productid)
     {
+        $query = $this->db->get_where('products',array('product_id' => $productid));
+        $result = $query->row();
+        $prod_id = $result->id;
         $query = $this->db->get_where('modifiers', array('id' => $data['id']));
         if($query->num_rows()<1)
         {
-            $this->id = $data['id'];
-            $this->id_modifier_class = $classid;
-            $this->sku = $data['sku'];
-            $this->sort = $data['sort'];
+            $this->Prod_mod_id = $prod_id;
+            $this->prod_mod_class_id = $classid;
+            $this->modifier_id = $data['id'];
             $this->name = $data['name'];
-            $this->price = $data['price'];
+            $this->sort = $data['sort'];
+            $this->sku = $data['sku'];
             $this->barcode = $data['barcode'];
-            $this->cost = $data['cost'];
             $this->active = $data['active'];
+            $this->price = $data['price'];
+            $this->default_modifier = 0;
+            $this->cost = $data['cost'];
             $this->selected = $data['selected'];
             $this->is_quick = $data['is_quick'];
             $this->img_url = $data['img_url'];
@@ -40,5 +48,6 @@ class modifiers extends CI_Model{
     function delete()
     {
         $this->db->empty_table('modifiers');
+        $this->db->query('ALTER TABLE modifiers AUTO_INCREMENT = 1');
     }
 }

@@ -7,5 +7,7 @@
 </head>
 <body>
     <a href="<?php echo $_SERVER['REQUEST_URI'].'/updating_products' ?>" class="update-button"> Update Products</a>
+    <br>
+    <a href="<?php echo $_SERVER['REQUEST_URI'].'/punch_order' ?>" class="punch-button">Punch order</a>
 </body>
 </html>

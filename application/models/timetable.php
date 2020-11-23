@@ -1,7 +1,7 @@
 <?php
 
 class timetable extends CI_Model{
-    var $id = "";
+    var $product_id = "";
     var $active = "";
     var $from_date = "";
     var $to_date = "";
@@ -16,7 +16,7 @@ class timetable extends CI_Model{
         $query = $this->db->get_where('timetable', array('id' => $id1));
         if($query->num_rows()<1)
         {
-            $this->id = $id1;
+            $this->product_id = $id1;
             $this->active = $data['active'];
             $this->from_date = $data['from_date'];
             $this->to_date = $data['to_date'];
@@ -28,5 +28,6 @@ class timetable extends CI_Model{
     function delete()
     {
         $this->db->empty_table('timetable');
+        $this->db->query('ALTER TABLE timetable AUTO_INCREMENT = 1');
     }
 }

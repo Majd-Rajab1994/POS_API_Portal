@@ -1,17 +1,18 @@
 <?php
 
 class products extends CI_Model{
-    var $id = "";
+    var $product_id ="";
+    var $category_id = "";
+    var $name = "";
+    var $price = "";
+    var $cost = "";
+    var $barcode ="";
+    var $description = "";
+    var $image = "";
     var $sort = "";
     var $sku = "";
-    var $id_category = "";
-    var $name = "";
-    var $description = "";
-    var $images = "";
     var $stock_amount = "";
-    var $price = "";
     var $uom = "";
-    var $cost = "";
     var $sold_by_weight = "";
     var $attribute_type = "";
     var $is_shipping = "";
@@ -28,20 +29,24 @@ class products extends CI_Model{
     }
     function insert($data)
     {
-        $query = $this->db->get_where('products', array('id' => $data['id']));
+        $query = $this->db->get_where('product_category',array('pcat_id' => $data['id_category']));
+        $result = $query->row();
+        $id = $result->id;
+        $query = $this->db->get_where('products', array('product_id' => $data['id']));
         if($query->num_rows()<1)
         {
-            $this->id = $data['id'];
+            $this->product_id = $data['id'];
+            $this->category_id = $id;
+            $this->name = $data['name'];
+            $this->price = $data['price'];
+            $this->cost = $data['cost'];
+            $this->barcode = "";
+            $this->description = $data['description'];
+            $this->image = $data['images'];
             $this->sort = $data['sort'];
             $this->sku = $data['sku'];
-            $this->id_category = $data['id_category'];
-            $this->name = $data['name'];
-            $this->description = $data['description'];
-            $this->images = $data['images'];
             $this->stock_amount = $data['stock_amount'];
-            $this->price = $data['price'];
             $this->uom = $data['uom'];
-            $this->cost = $data['cost'];
             $this->sold_by_weight = $data['sold_by_weight'];
             $this->attribute_type = $data['attribute_type'];
             $this->is_shipping = $data['is_shipping'];
@@ -58,5 +63,6 @@ class products extends CI_Model{
     function delete()
     {
         $this->db->empty_table('products');
+        $this->db->query('ALTER TABLE products AUTO_INCREMENT = 1');
     }
 }
